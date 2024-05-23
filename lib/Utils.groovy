@@ -15,6 +15,7 @@ class Utils {
             } catch(IOException e) {
                 err = e
             }
+            // TODO create log/ dir if it doesn't exist
             new FileWriter("${workflow.launchDir}/log/spooker.log").with {
                 write("${out}\n${err}")
                 flush()
