@@ -41,13 +41,27 @@ workflow {
         .reads
         .set { raw_reads }
 
+
     ch_count = params.count_table ? file(params.count_table, checkIfExists: true) : null
     if (!ch_count) { // trim reads and run mageck count
         TRIM_COUNT(raw_reads, file(params.library, checkIfExists: true))
         ch_count = TRIM_COUNT.out.count
     }
 
-
+    ch_branched = raw_reads.branch { meta, fastqs ->
+            treat: meta.control.length() > 0
+                return [ [control: meta.control], meta.id ]
+            control: meta.control.length() == 0
+                return [ [control: meta.sample_basename] ]
+          }
+    ch_treat_ctrl_linked =
+        ch_branched.treat
+            | groupTuple()
+            | map { ctrl, ids -> [ ctrl, ids.flatten() ] }
+            | cross( ch_branched.control )
+    //raw_reads | view
+    ch_treat_ctrl_linked | view
+/*
     raw_reads
       .branch { meta, fastq ->
         treat: meta.treat_or_ctrl == 'treatment'
@@ -69,5 +83,5 @@ workflow {
     if (params.bagel.run) {
         BAGEL(ch_count, control)
     }
-
+*/
 }
