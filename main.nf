@@ -47,6 +47,7 @@ workflow {
         ch_count = TRIM_COUNT.out.count
     }
 
+
     raw_reads
       .branch { meta, fastq ->
         treat: meta.treat_or_ctrl == 'treatment'
@@ -58,6 +59,7 @@ workflow {
 
     treat = treat_meta.treat.collect()
     control = treat_meta.ctrl.collect()
+
     if (params.mageck.run) {
         MAGECK(ch_count, treat, control)
     }
@@ -67,4 +69,5 @@ workflow {
     if (params.bagel.run) {
         BAGEL(ch_count, control)
     }
+
 }
