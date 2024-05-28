@@ -1,5 +1,5 @@
 sample,rep,fastq_1,fastq_2,control
-HL60.initial,,tests/data/file1.fastq.gz,,HL60.final
-KBM7.initial,,tests/data/file1.fastq.gz,,KBM7.final
-HL60.final,,tests/data/file2.fastq.gz,,treatment
-KBM7.final,,tests/data/file2.fastq.gz,,treatment
+HL60.initial,,tests/data/file1.fastq.gz,,
+KBM7.initial,,tests/data/file1.fastq.gz,,
+HL60.final,,tests/data/file2.fastq.gz,,HL60.initial
+KBM7.final,,tests/data/file2.fastq.gz,,KBM7.initial
