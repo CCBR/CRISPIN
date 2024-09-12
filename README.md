@@ -1,6 +1,6 @@
 # CRISPIN 🍪
 
-Crispr screen sequencing analysis pipeline
+**CRISP**r screen sequencing analysis pipel**IN**e
 
 🚧 **This project is under active development. It is not yet ready for production use.** 🚧
 
