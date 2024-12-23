@@ -1,5 +1,7 @@
 ## CRISPIN development version
 
+- Fix spelling of shared SIF directory on biowulf -- it is `/data/CCBR_Pipeliner/SIFs` with a lowercase "s" at the end. (#54, @kelly-sovacool)
+
 ## CRISPIN 1.0.1
 
 - CRISPIN is now archived in Zenodo as v1.0.0. You can cite it with <https://doi.org/10.5281/zenodo.13844209>. (@kelly-sovacool)
