@@ -1,6 +1,6 @@
 ## CRISPIN development version
 
-- Enable nextflow [timeline & trace reports](https://www.nextflow.io/docs/latest/reports.html) by default.
+- Enable nextflow [timeline & trace reports](https://www.nextflow.io/docs/latest/reports.html) by default. (#55, @kelly-sovacool)
 
 ## CRISPIN 1.0.1
 
