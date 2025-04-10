@@ -2,6 +2,7 @@
 
 - Fix spelling of shared SIF directory on biowulf -- it is `/data/CCBR_Pipeliner/SIFs` with a lowercase "s" at the end. (#54, @kelly-sovacool)
 - Enable nextflow [timeline & trace reports](https://www.nextflow.io/docs/latest/reports.html) by default. (#55, @kelly-sovacool)
+- Minor documentation updates. (#57, @kelly-sovacool)
 
 ## CRISPIN 1.0.1
 
