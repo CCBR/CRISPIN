@@ -1,5 +1,5 @@
 log.info """\
-CRISPIN 🍪
+CRISPIN 🍪 $workflow.manifest.version
 =============
 NF version   : $nextflow.version
 runName      : $workflow.runName
