@@ -1,16 +1,17 @@
 ## CRISPIN development version
 
-- Fix spelling of shared SIF directory on biowulf -- it is `/data/CCBR_Pipeliner/SIFs` with a lowercase "s" at the end. (#54, @kelly-sovacool)
-- Enable nextflow [timeline & trace reports](https://www.nextflow.io/docs/latest/reports.html) by default. (#55, @kelly-sovacool)
-- Minor documentation updates. (#57, @kelly-sovacool)
 - CLI updates: (#58, @kelly-sovacool)
   - Use `nextflow run -resume` by default, or turn it off with `crispin run --forceall`.
   - Add `--output` argument for `crispin init` and `crispin run`.
     - If not provided, commands are run in the current working directory.
     - This is equivalent to the nextflow `$launchDir` constant.
   - The nextflow preview is printed before launching the actual run.
-  - Set the `publish_dir_mode` nextflow option to `link` by default.
-  - Set the `process.cache` nextflow option to `deep` by default rather than lenient on biowulf.
+- Nextflow updates:
+  - Enable nextflow [timeline & trace reports](https://www.nextflow.io/docs/latest/reports.html) by default. (#55, @kelly-sovacool)
+  - Set the `publish_dir_mode` nextflow option to `link` by default. (#58, @kelly-sovacool)
+  - Set the `process.cache` nextflow option to `deep` by default on biowulf. (#58, @kelly-sovacool)
+- Minor documentation updates. (#57, @kelly-sovacool)
+- Fix spelling of shared SIF directory on biowulf -- it is `/data/CCBR_Pipeliner/SIFs` with a lowercase "s" at the end. (#54, @kelly-sovacool)
 
 ## CRISPIN 1.0.1
 
