@@ -1,4 +1,4 @@
-## CRISPIN development version
+## CRISPIN 1.1.0
 
 - CLI updates: (#58, @kelly-sovacool)
   - Use `nextflow run -resume` by default, or turn it off with `crispin run --forceall`.
