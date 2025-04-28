@@ -1,6 +1,7 @@
 ## CRISPIN development version
 
 - Fix error in spooker usage. (#61, @kelly-sovacool)
+- Bump ccbr_tools to v0.3
 
 ## CRISPIN 1.1.0
 
