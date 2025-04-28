@@ -1,5 +1,7 @@
 ## CRISPIN development version
 
+- Fix error in spooker usage. (#61, @kelly-sovacool)
+
 ## CRISPIN 1.1.0
 
 - CLI updates: (#58, @kelly-sovacool)
