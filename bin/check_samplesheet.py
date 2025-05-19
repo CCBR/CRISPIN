@@ -8,6 +8,7 @@ import os
 import sys
 import errno
 import argparse
+import pprint
 
 
 def parse_args(args=None):
@@ -51,7 +52,7 @@ def check_samplesheet(file_in, file_out):
     with open(file_in, "r", encoding="utf-8-sig") as fin:
         ## Check header
         MIN_COLS = 2
-        HEADER = ["sample", "fastq_1", "fastq_2", "treat_or_ctrl"]
+        HEADER = ["sample", "rep", "fastq_1", "fastq_2", "control"]
         header = [x.strip('"') for x in fin.readline().strip().split(",")]
         if header[: len(HEADER)] != HEADER:
             print(
@@ -81,7 +82,10 @@ def check_samplesheet(file_in, file_out):
                 )
 
             ## Check sample name entries
-            sample, fastq_1, fastq_2, treat_or_ctrl = lspl[: len(HEADER)]
+            sample_basename, rep, fastq_1, fastq_2, control = lspl[: len(HEADER)]
+            print("lspl")
+            pprint.pprint(lspl)
+            sample = f"{sample_basename}_{rep}" if rep else sample_basename
             if sample.find(" ") != -1:
                 print(
                     f"WARNING: Spaces have been replaced by underscores for sample: {sample}"
@@ -95,20 +99,12 @@ def check_samplesheet(file_in, file_out):
                 if fastq:
                     if fastq.find(" ") != -1:
                         print_error("FastQ file contains spaces!", "Line", line)
-                    if not fastq.endswith(".fastq.gz") and not fastq.endswith(".fq.gz"):
+                    if not fastq.endswith("fastq.gz") and not fastq.endswith(".fq.gz"):
                         print_error(
-                            "FastQ file does not have extension '.fastq.gz' or '.fq.gz'!",
+                            "FastQ file does not have extension 'fastq.gz' or '.fq.gz'!",
                             "Line",
                             line,
                         )
-
-            ## check treatment or control designation
-            if treat_or_ctrl not in {"treatment", "control"}:
-                print_error(
-                    "treat_or_ctrl column can only contain values `treatment` or `control`.",
-                    "Line",
-                    line,
-                )
 
             ## Auto-detect paired-end/single-end
             if sample and fastq_1 and fastq_2:  ## Paired-end short reads
@@ -118,7 +114,7 @@ def check_samplesheet(file_in, file_out):
             else:
                 print_error("Invalid combination of columns provided!", "Line", line)
 
-            sample_info = [is_single, fastq_1, fastq_2, treat_or_ctrl]
+            sample_info = [sample_basename, rep, is_single, fastq_1, fastq_2, control]
             ## Create sample mapping dictionary = {sample: [[ single_end, fastq_1, fastq_2,]]}
             if sample not in sample_mapping_dict:
                 sample_mapping_dict[sample] = [sample_info]
@@ -135,7 +131,15 @@ def check_samplesheet(file_in, file_out):
         with open(file_out, "w") as fout:
             fout.write(
                 ",".join(
-                    ["sample", "single_end", "fastq_1", "fastq_2", "treat_or_ctrl"]
+                    [
+                        "sample",
+                        "sample_basename",
+                        "rep",
+                        "single_end",
+                        "fastq_1",
+                        "fastq_2",
+                        "control",
+                    ]
                 )
                 + "\n"
             )
