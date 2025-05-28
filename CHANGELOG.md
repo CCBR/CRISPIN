@@ -1,6 +1,6 @@
 ## CRISPIN development version
 
-- Improve help message for `crispin run`.
+- Improve help message for `crispin run`. (#65, @kelly-sovacool)
   - the default `--mode` is now `slurm`.
 
 ## CRISPIN 1.2.0
