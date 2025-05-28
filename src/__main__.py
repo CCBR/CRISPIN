@@ -53,17 +53,20 @@ def cli():
 
 help_msg_extra = """
 \b
+Nextflow options:
+-profile <profile>    Nextflow profile to use (e.g. test)
+-params-file <file>   Nextflow params file to use (e.g. assets/params.yml)
+-preview              Preview the processes that will run without executing them
+
+\b
 EXAMPLES:
 Execute with slurm:
-    crispin run ... --mode slurm
+  crispin run --output path/to/outdir --mode slurm
 Preview the processes that will run:
-    crispin run ... --mode local -preview
+  crispin run --output path/to/outdir --mode local -preview
 Add nextflow args (anything supported by `nextflow run`):
-    crispin run ... -work-dir path/to/workDir
-Run with a specific installation of crispin:
-    crispin run --main path/to/crispin/main.nf ...
-Run with a specific tag, branch, or commit from GitHub:
-    crispin run --main CCBR/CRISPIN -r v0.1.0 ...
+  crispin run --output path/to/outdir --mode slurm -profile test
+  crispin run --output path/to/outdir --mode slurm -profile test -params-file assets/params.yml
 """
 
 
@@ -82,6 +85,7 @@ Run with a specific tag, branch, or commit from GitHub:
     type=str,
     default=repo_base("main.nf"),
     show_default=True,
+    hidden=True,
 )
 @click.option(
     "--output",
@@ -95,7 +99,7 @@ Run with a specific tag, branch, or commit from GitHub:
     "_mode",
     help="Run mode (slurm, local)",
     type=str,
-    default="local",
+    default="slurm",
     show_default=True,
 )
 @click.option(
@@ -109,7 +113,12 @@ Run with a specific tag, branch, or commit from GitHub:
 )
 @click.argument("nextflow_args", nargs=-1)
 def run(main_path, output, _mode, force_all, **kwargs):
-    """Run the workflow"""
+    """
+    Run the workflow
+
+    Note: you must first run `crispin init --output <output_dir>` to initialize
+    the output directory.
+    """
     if (  # this is the only acceptable github repo option for crispin
         main_path != "CCBR/CRISPIN"
     ):

@@ -42,7 +42,7 @@ jobs:
         run: |
           cd tests/
           crispin init
-          crispin run -profile ci_stub -stub
+          crispin run -profile ci_stub -stub --mode local
 
   build-status: # https://github.com/orgs/community/discussions/4324#discussioncomment-3477871
     runs-on: ubuntu-latest
