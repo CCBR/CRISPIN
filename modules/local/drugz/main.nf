@@ -4,13 +4,11 @@ process DRUGZ {
     container "${params.containers.drugz}"
 
     input:
-        path(count)
-        val(treatment)
-        val(control)
+        tuple val(meta), path(count)
 
     output:
-        path("*output.txt"), emit: txt
-        path("*foldchange.txt"), emit: fc
+        tuple val(meta), path("*output.txt"), emit: txt
+        tuple val(meta), path("*foldchange.txt"), emit: fc
 
     script:
     """
@@ -18,8 +16,8 @@ process DRUGZ {
       -i ${count} \\
       -o ${count.getBaseName(2)}.output.txt \\
       -f ${count.getBaseName(2)}.foldchange.txt \\
-      -c ${control.join(',')} \\
-      -x ${treatment.join(',')} \\
+      -c ${meta.control} \\
+      -x ${meta.ids} \\
       -r ${params.drugz.remove_genes} \\
       --half_window_size ${params.drugz.half_window_size}
     """
