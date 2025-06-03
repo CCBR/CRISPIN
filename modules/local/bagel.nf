@@ -1,7 +1,7 @@
 
 process FOLD_CHANGE {
     label 'bagel'
-    container "${params.containers.bagel}"
+    container "${params.container_bagel}"
 
     input:
         path(count)
@@ -30,7 +30,7 @@ process FOLD_CHANGE {
 
 process BAYES_FACTOR {
     label 'bagel'
-    container "${params.containers.bagel}"
+    container "${params.container_bagel}"
 
     input:
         path(fold_change)
@@ -43,9 +43,9 @@ process BAYES_FACTOR {
     BAGEL.py bf \\
       -i ${fold_change} \\
       -o ${fold_change.getBaseName(2)}.bf \\
-      -e ${params.bagel.core_essential_genes} \\
-      -n ${params.bagel.non_essential_genes} \\
-      -c ${params.bagel.test_columns}
+      -e ${params.bagel_core_essential_genes} \\
+      -n ${params.bagel_non_essential_genes} \\
+      -c ${params.bagel_test_columns}
     """
 
     stub:
@@ -55,7 +55,7 @@ process BAYES_FACTOR {
 }
 process PRECISION_RECALL {
     label 'bagel'
-    container "${params.containers.bagel}"
+    container "${params.container_bagel}"
 
     input:
         path(bayes_factor)
@@ -68,8 +68,8 @@ process PRECISION_RECALL {
     BAGEL.py pr \\
       -i ${bayes_factor} \\
       -o ${bayes_factor.getBaseName(2)}.pr \\
-      -e ${params.bagel.core_essential_genes} \\
-      -n ${params.bagel.non_essential_genes}
+      -e ${params.bagel_core_essential_genes} \\
+      -n ${params.bagel_non_essential_genes}
     """
 
     stub:

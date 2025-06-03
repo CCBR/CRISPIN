@@ -1,7 +1,7 @@
 
 process COUNT {
     label 'mageck'
-    container "${params.containers.mageck}"
+    container "${params.container_mageck}"
 
     input:
         file(lib)
@@ -35,7 +35,7 @@ process COUNT {
 
 process TEST {
     label 'mageck'
-    container "${params.containers.mageck}"
+    container "${params.container_mageck}"
 
     input:
       path(count)
@@ -66,7 +66,7 @@ process TEST {
 process MLE {
     label 'mageck'
     label 'process_higher'
-    container "${params.containers.mageck}"
+    container "${params.container_mageck}"
 
     input:
         path(count)
@@ -96,7 +96,7 @@ process MLE {
 
 process VISPR { // TODO
     label 'vispr'
-    container "${params.containers.vispr}"
+    container "${params.container_vispr}"
 
     output:
         path("output.txt")

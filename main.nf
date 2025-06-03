@@ -1,21 +1,3 @@
-log.info """\
-CRISPIN 🍪 $workflow.manifest.version
-=============
-NF version   : $nextflow.version
-runName      : $workflow.runName
-username     : $workflow.userName
-configs      : $workflow.configFiles
-profile      : $workflow.profile
-cmd line     : $workflow.commandLine
-start time   : $workflow.start
-projectDir   : $workflow.projectDir
-launchDir    : $workflow.launchDir
-workDir      : $workflow.workDir
-homeDir      : $workflow.homeDir
-input        : ${params.input}
-"""
-.stripIndent()
-
 // SUBMODULES
 include { INPUT_CHECK } from './subworkflows/local/input_check.nf'
 include { TRIM_COUNT  } from './subworkflows/local/trim_count.nf'
@@ -34,8 +16,26 @@ workflow.onComplete {
     }
 }
 
+// Plugins
+include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
+
+workflow LOG {
+    log.info """\
+            CRISPIN 🍪 $workflow.manifest.version
+            ===================================
+            cmd line     : $workflow.commandLine
+            start time   : $workflow.start
+            launchDir    : $workflow.launchDir
+            input        : ${params.input}
+            """
+            .stripIndent()
+
+    log.info paramsSummaryLog(workflow)
+}
 
 workflow {
+    LOG()
+    validateParameters()
     INPUT_CHECK(file(params.input))
     INPUT_CHECK.out
         .reads
@@ -58,13 +58,13 @@ workflow {
 
     treat = treat_meta.treat.collect()
     control = treat_meta.ctrl.collect()
-    if (params.mageck.run) {
+    if (params.mageck_run) {
         MAGECK(ch_count, treat, control)
     }
-    if (params.drugz.run) {
+    if (params.drugz_run) {
         DRUGZ(ch_count, treat, control)
     }
-    if (params.bagel.run) {
+    if (params.bagel_run) {
         BAGEL(ch_count, control)
     }
 }

@@ -1,7 +1,7 @@
 
 process DRUGZ {
     label 'drugz'
-    container "${params.containers.drugz}"
+    container "${params.container_drugz}"
 
     input:
         path(count)
@@ -20,8 +20,8 @@ process DRUGZ {
       -f ${count.getBaseName(2)}.foldchange.txt \\
       -c ${control.join(',')} \\
       -x ${treatment.join(',')} \\
-      -r ${params.drugz.remove_genes} \\
-      --half_window_size ${params.drugz.half_window_size}
+      -r ${params.drugz_remove_genes} \\
+      --half_window_size ${params.drugz_half_window_size}
     """
 
     stub:

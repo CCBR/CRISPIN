@@ -2,7 +2,7 @@
 process FASTQC {
     tag { sample_id }
 
-    container "${params.containers.fastqc}"
+    container "${params.container_fastqc}"
 
     input:
         tuple val(sample_id), path(fastq)

@@ -1,0 +1,233 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/CCBR/CRISPIN//nextflow_schema.json",
+    "title": "CCBR/CRISPIN pipeline parameters",
+    "description": "CRISPR screen pipeline",
+    "type": "object",
+    "$defs": {
+        "input_output_options": {
+            "title": "Input/output options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Define where the pipeline should find input data and save output data.",
+            "required": ["input", "outdir"],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to comma-separated file containing information about the samples in the experiment.",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+                    "fa_icon": "fas fa-folder-open",
+                    "default": "results"
+                },
+                "library": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "exp_name": {
+                    "type": "string",
+                    "default": "crispin"
+                },
+                "count_table": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "design_matrix": {
+                    "type": "string",
+                    "fa_icon": "fas fa-file-alt"
+                }
+            }
+        },
+        "general_options": {
+            "title": "General options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "publish_dir_mode": {
+                    "type": "string",
+                    "default": "link"
+                },
+                "max_memory": {
+                    "type": "string",
+                    "default": "224 GB"
+                },
+                "max_cpus": {
+                    "type": "integer",
+                    "default": 32
+                },
+                "max_time": {
+                    "type": "string",
+                    "default": "72 h"
+                },
+                "index_dir": {
+                    "type": "string",
+                    "fa_icon": "fas fa-folder",
+                    "hidden": true
+                }
+            }
+        },
+        "trimming_options": {
+            "title": "Trimming options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "cutadapt_adapters": {
+                    "type": "string",
+                    "default": "/opt2/TruSeq_and_nextera_adapters.consolidated.fa",
+                    "fa_icon": "fas fa-file",
+                    "hidden": true
+                },
+                "cutadapt_minlen": {
+                    "type": "integer",
+                    "default": 20
+                },
+                "cutadapt_leadingquality": {
+                    "type": "integer",
+                    "default": 10
+                },
+                "cutadapt_trailingquality": {
+                    "type": "integer",
+                    "default": 10
+                }
+            }
+        },
+        "control_whether_these_steps_are_executed": {
+            "title": "Control whether these steps are executed",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "mageck_run": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "drugz_run": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "bagel_run": {
+                    "type": "boolean",
+                    "default": true
+                }
+            }
+        },
+        "crispr_options": {
+            "title": "crispr options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "drugz_remove_genes": {
+                    "type": "string",
+                    "description": "comma-sep str"
+                },
+                "drugz_half_window_size": {
+                    "type": "integer",
+                    "default": 500
+                },
+                "bagel_core_essential_genes": {
+                    "type": "string",
+                    "default": "/opt2/bagel-2.0-115/CEGv2.txt",
+                    "fa_icon": "fas fa-file"
+                },
+                "bagel_non_essential_genes": {
+                    "type": "string",
+                    "default": "/opt2/bagel-2.0-115/NEGv1.txt",
+                    "fa_icon": "fas fa-file"
+                },
+                "bagel_test_columns": {
+                    "type": "string"
+                }
+            }
+        },
+        "docker_containers": {
+            "title": "Docker containers",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "container_bagel": {
+                    "type": "string",
+                    "default": "nciccbr/crispin_bagel_2.0:0.1.0"
+                },
+                "container_base": {
+                    "type": "string",
+                    "default": "nciccbr/ccbr_ubuntu_base_20.04:v5"
+                },
+                "container_cutadapt": {
+                    "type": "string",
+                    "default": "nciccbr/ncigb_cutadapt_v1.18:latest"
+                },
+                "container_drugz": {
+                    "type": "string",
+                    "default": "nciccbr/crispin_drugz:0.1.0"
+                },
+                "container_mageck": {
+                    "type": "string",
+                    "default": "quay.io/biocontainers/mageck:0.5.9.5--py39h1f90b4d_3"
+                },
+                "container_fastqc": {
+                    "type": "string",
+                    "default": "nciccbr/ccrgb_qctools:v4.0"
+                },
+                "container_vispr": {
+                    "type": "string",
+                    "default": "quay.io/biocontainers/mageck-vispr:0.5.6--py_0"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/$defs/input_output_options"
+        },
+        {
+            "$ref": "#/$defs/general_options"
+        },
+        {
+            "$ref": "#/$defs/trimming_options"
+        },
+        {
+            "$ref": "#/$defs/control_whether_these_steps_are_executed"
+        },
+        {
+            "$ref": "#/$defs/crispr_options"
+        },
+        {
+            "$ref": "#/$defs/docker_containers"
+        }
+    ],
+    "properties": {
+        "config_profile_name": {
+            "type": "string",
+            "hidden": true
+        },
+        "config_profile_description": {
+            "type": "string",
+            "hidden": true
+        },
+        "config_profile_url": {
+            "type": "string",
+            "hidden": true
+        },
+        "config_profile_contact": {
+            "type": "string",
+            "hidden": true
+        },
+        "igenomes_base": {
+            "type": "string",
+            "hidden": true
+        }
+    }
+}

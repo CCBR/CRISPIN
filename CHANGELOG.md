@@ -1,5 +1,7 @@
 ## CRISPIN development version
 
+- Nextflow parameters are now validated at the start of the workflow.
+
 ## CRISPIN 1.2.1
 
 - Improve help message for `crispin run`. (#65, @kelly-sovacool)
