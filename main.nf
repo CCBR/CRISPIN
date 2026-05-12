@@ -7,15 +7,6 @@ include { BAGEL       } from './subworkflows/local/bagel.nf'
 // MODULES
 include { DRUGZ } from './modules/local/drugz.nf'
 
-workflow.onComplete {
-    if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
-        def message = Utils.spooker(workflow)
-        if (message) {
-            println message
-        }
-    }
-}
-
 // Plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
 
@@ -67,4 +58,14 @@ workflow {
     if (params.bagel_run) {
         BAGEL(ch_count, control)
     }
+
+  workflow.onComplete {
+      if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
+          def message = Utils.spooker(workflow)
+          if (message) {
+              println message
+          }
+      }
+  }
+
 }
