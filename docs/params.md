@@ -50,6 +50,7 @@ Define where the pipeline should find input data and save output data.
 | ---------------------------- | ------------- | --------- | ----------------------------- | -------- | ------ |
 | `drugz_remove_genes`         | comma-sep str | `string`  |                               |          |        |
 | `drugz_half_window_size`     |               | `integer` | 500                           |          |        |
+| `bagel_species`              | Species for BAGEL analysis; determines default essential and non-essential gene set files. | `string` | human |          |        |
 | `bagel_core_essential_genes` |               | `string`  | /opt2/bagel-2.0-115/CEGv2.txt |          |        |
 | `bagel_non_essential_genes`  |               | `string`  | /opt2/bagel-2.0-115/NEGv1.txt |          |        |
 | `bagel_test_columns`         |               | `string`  |                               |          |        |
