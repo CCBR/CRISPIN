@@ -11,22 +11,22 @@ def get_bagel_gene_sets(String species) {
             noncore: '/opt2/bagel-2.0-115/NEGv1_mouse.txt'
         ]
     ]
-    
+
     if (!bagel_gene_sets.containsKey(species)) {
         error("Unsupported bagel_species '${species}'. Supported species: ${bagel_gene_sets.keySet().join(', ')}")
     }
-    
+
     return bagel_gene_sets[species]
 }
 
 // Helper to resolve gene set file paths based on species or explicit params
 def resolve_bagel_genes() {
     Map genes = get_bagel_gene_sets(params.bagel_species)
-    
+
     // Allow explicit params to override species defaults
     String core_genes = params.bagel_core_essential_genes
     String noncore_genes = params.bagel_non_essential_genes
-    
+
     // If using default species-based path, apply species-specific path
     if (core_genes == '/opt2/bagel-2.0-115/CEGv2.txt') {
         core_genes = genes.core
@@ -34,7 +34,7 @@ def resolve_bagel_genes() {
     if (noncore_genes == '/opt2/bagel-2.0-115/NEGv1.txt') {
         noncore_genes = genes.noncore
     }
-    
+
     return [core: core_genes, noncore: noncore_genes]
 }
 
