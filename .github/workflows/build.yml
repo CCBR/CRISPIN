@@ -47,6 +47,14 @@ jobs:
           cd tests/
           crispin init
           crispin run -profile ci_stub -stub --mode local
+      - name: Test DotMatch count stub run
+        run: |
+          cd tests/
+          crispin run -profile ci_stub -stub --mode local \
+            --outdir results/test_dotmatch \
+            --count_method dotmatch \
+            --dotmatch_target_start 23 \
+            --dotmatch_target_length 19
 
   build-status: # https://github.com/orgs/community/discussions/4324#discussioncomment-3477871
     runs-on: ubuntu-latest

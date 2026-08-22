@@ -60,6 +60,25 @@ and `--library` for the path to your library file:
 crispin run --mode slurm -profile biowulf --input samplesheet.csv --library assets/lib/yusa_library.csv
 ```
 
+### Optional DotMatch guide counting
+
+MAGeCK counting remains the default. For a fixed-length guide library and a
+known post-trimming guide window, the count step can use DotMatch instead:
+
+```sh
+crispin run --mode slurm -profile biowulf \
+  --input samplesheet.csv \
+  --library assets/lib/yusa_library.csv \
+  --count_method dotmatch \
+  --dotmatch_target_start 23 \
+  --dotmatch_target_length 19
+```
+
+The DotMatch count output is MAGeCK-compatible. Assignment summaries are kept
+alongside the count output, and the `radius` ambiguity policy is conservative
+by default. Confirm the read window and review the summary before treating
+rescued assignments as final results.
+
 ## Help & Contributing
 
 Come across a **bug**? Open an [issue](https://github.com/CCBR/CRISPIN/issues) and include a minimal reproducible example.
