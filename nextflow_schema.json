@@ -41,6 +41,37 @@
                     "type": "string",
                     "fa_icon": "fas fa-file-csv"
                 },
+                "count_method": {
+                    "type": "string",
+                    "enum": ["mageck", "dotmatch"],
+                    "default": "mageck",
+                    "description": "Guide-counting backend. MAGeCK remains the default; DotMatch requires a fixed-length guide library and known read window."
+                },
+                "dotmatch_target_start": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "default": 23,
+                    "description": "Zero-based guide-window start after trimming when count_method is dotmatch."
+                },
+                "dotmatch_target_length": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 19,
+                    "description": "Guide-window length when count_method is dotmatch."
+                },
+                "dotmatch_mismatch": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 3,
+                    "default": 0,
+                    "description": "Hamming mismatch radius for DotMatch guide assignment."
+                },
+                "dotmatch_ambiguity_policy": {
+                    "type": "string",
+                    "enum": ["radius", "best"],
+                    "default": "radius",
+                    "description": "How DotMatch handles reads compatible with multiple guides."
+                },
                 "design_matrix": {
                     "type": "string",
                     "fa_icon": "fas fa-file-alt"
@@ -176,6 +207,10 @@
                 "container_mageck": {
                     "type": "string",
                     "default": "quay.io/biocontainers/mageck:0.5.9.5--py39h1f90b4d_3"
+                },
+                "container_dotmatch": {
+                    "type": "string",
+                    "default": "quay.io/biocontainers/dotmatch:0.2.2--py311h13f8228_1"
                 },
                 "container_fastqc": {
                     "type": "string",
