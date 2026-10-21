@@ -1,6 +1,8 @@
 ## CRISPIN development version
 
 - Nextflow parameters are now validated at the start of the workflow. (#68, @kelly-sovacool)
+- Add an opt-in DotMatch guide-counting backend that emits MAGeCK-compatible
+  counts and assignment summaries. (#81)
 
 ## CRISPIN 1.2.1
 
