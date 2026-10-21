@@ -7,33 +7,25 @@ include { BAGEL       } from './subworkflows/local/bagel.nf'
 // MODULES
 include { DRUGZ } from './modules/local/drugz.nf'
 
-workflow.onComplete {
-    if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
-        def message = Utils.spooker(workflow)
-        if (message) {
-            println message
-        }
-    }
-}
-
 // Plugins
 include { validateParameters; paramsSummaryLog } from 'plugin/nf-schema'
 
 workflow LOG {
-    log.info """\
-            CRISPIN 🍪 $workflow.manifest.version
-            ===================================
-            cmd line     : $workflow.commandLine
-            start time   : $workflow.start
-            launchDir    : $workflow.launchDir
-            input        : ${params.input}
-            """
-            .stripIndent()
+  log.info """\
+          CRISPIN 🍪 $workflow.manifest.version
+          ===================================
+          cmd line     : $workflow.commandLine
+          start time   : $workflow.start
+          launchDir    : $workflow.launchDir
+          input        : ${params.input}
+          """
+          .stripIndent()
 
-    log.info paramsSummaryLog(workflow)
+  log.info paramsSummaryLog(workflow)
 }
 
 workflow {
+    main:
     LOG()
     validateParameters()
     INPUT_CHECK(file(params.input))
@@ -66,5 +58,13 @@ workflow {
     }
     if (params.bagel_run) {
         BAGEL(ch_count, control)
+    }
+
+    onComplete:
+    if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
+        def message = Utils.spooker(workflow)
+        if (message) {
+            println message
+        }
     }
 }
