@@ -1,5 +1,6 @@
 include { CUTADAPT               } from '../../modules/CCBR/cutadapt'
 include { COUNT as MAGECK_COUNT } from "../../modules/local/mageck.nf"
+include { COUNT as DOTMATCH_COUNT } from "../../modules/local/dotmatch.nf"
 
 workflow TRIM_COUNT {
     take:
@@ -15,12 +16,19 @@ workflow TRIM_COUNT {
         }
         .set{ reads }
 
-        MAGECK_COUNT(library,
-                     reads.id.collect(),
-                     reads.fastq.collect()
-                    )
+        if (params.count_method == 'dotmatch') {
+            DOTMATCH_COUNT(library,
+                           reads.id.collect(),
+                           reads.fastq.collect()
+                          )
+        } else {
+            MAGECK_COUNT(library,
+                         reads.id.collect(),
+                         reads.fastq.collect()
+                        )
+        }
 
     emit:
-        count = MAGECK_COUNT.out.count
+        count = params.count_method == 'dotmatch' ? DOTMATCH_COUNT.out.count : MAGECK_COUNT.out.count
         trimmed_reads = CUTADAPT.out.reads
 }
