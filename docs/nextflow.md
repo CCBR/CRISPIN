@@ -2,12 +2,16 @@
 
 You can run the nextflow pipeline directly by specifying this GitHub repo.
 You will need nextflow and either singularity or docker installed.
+CRISPIN is tested with Nextflow 25.10.4, which is pinned in the build and auto-format workflows.
 In this case you don't need to run `crispin init` first,
 as the config files will be accessed directly from the GitHub repo.
 
 ```sh
 nextflow run CCBR/CRISPIN -profile test,singularity
 ```
+
+Process CPU, memory, and time requests are capped by `max_cpus`, `max_memory`, and
+`max_time`, including overrides from the selected profile.
 
 You can specify a specific version, tag, or branch with `-r`:
 

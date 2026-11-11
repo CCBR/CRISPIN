@@ -29,10 +29,15 @@ jobs:
           cache: "pip"
       - name: Install nextflow
         uses: nf-core/setup-nextflow@v3
+        with:
+          version: 25.10.4
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools
           pip install .[dev,test]
+      - name: Check config parser compatibility
+        run: |
+          NXF_SYNTAX_PARSER=v2 nextflow config -o json .
       - name: lint nxf
         if: always()
         run: |
