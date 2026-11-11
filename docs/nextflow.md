@@ -9,6 +9,9 @@ as the config files will be accessed directly from the GitHub repo.
 nextflow run CCBR/CRISPIN -profile test,singularity
 ```
 
+Process CPU, memory, and time requests are capped by `max_cpus`, `max_memory`, and
+`max_time`, including overrides from the selected profile.
+
 You can specify a specific version, tag, or branch with `-r`:
 
 ```sh

@@ -1,5 +1,6 @@
 ## CRISPIN development version
 
+- Fix Nextflow configuration parsing while preserving profile-specific resource limits. (#87, @kelly-sovacool)
 - Nextflow parameters are now validated at the start of the workflow. (#68, @kelly-sovacool)
 
 ## CRISPIN 1.2.1
