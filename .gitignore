@@ -47,3 +47,5 @@ results/
 
 # mkdocs
 /site
+
+/node_modules/
