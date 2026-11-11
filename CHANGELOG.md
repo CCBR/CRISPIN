@@ -1,5 +1,6 @@
 ## CRISPIN development version
 
+- Pin `ccbr_tools` to v0.7. (#86, @kelly-sovacool)
 - Nextflow parameters are now validated at the start of the workflow. (#68, @kelly-sovacool)
 
 ## CRISPIN 1.2.1
