@@ -60,11 +60,12 @@ workflow {
         BAGEL(ch_count, control)
     }
 
-    onComplete:
-    if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
-        def message = Utils.spooker(workflow)
-        if (message) {
-            println message
+    workflow.onComplete = {
+        if (!workflow.stubRun && !workflow.commandLine.contains('-preview')) {
+            def message = Utils.spooker(workflow)
+            if (message) {
+                println message
+            }
         }
     }
 }
