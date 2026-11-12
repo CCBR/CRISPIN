@@ -1,5 +1,7 @@
 ## CRISPIN development version
 
+## CRISPIN 1.3.0
+
 - Pin `ccbr_tools` to v0.7. (#86, @kelly-sovacool)
 - Fix workflow startup with both Nextflow script parsers while preserving completion reporting. (#73, @kelly-sovacool)
 - Preserve executable permissions for bundled scripts in installed CRISPIN packages. (#73, @kelly-sovacool)
