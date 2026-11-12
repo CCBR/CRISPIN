@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
+        python-version: ["3.13"]
 
     steps:
       - uses: actions/checkout@v7
@@ -47,11 +47,21 @@ jobs:
           which crispin
           crispin --version
           crispin --citation
+          echo "CRISPIN_MAIN=$(python -c 'from importlib.resources import files; print(files("crispin") / "main.nf")')" >> "$GITHUB_ENV"
       - name: Test stub run
         run: |
           cd tests/
           crispin init
-          crispin run -profile ci_stub -stub --mode local
+          crispin run -profile ci_stub -stub -preview --mode local
+          # Run Nextflow directly so task failures propagate to CI.
+          nextflow run "$CRISPIN_MAIN" -profile ci_stub -stub
+      - name: Test strict-parser stub run
+        env:
+          NXF_SYNTAX_PARSER: v2
+        run: |
+          cd tests/
+          crispin run -c conf/ci_stub.config -stub -preview --mode local
+          nextflow run "$CRISPIN_MAIN" -c conf/ci_stub.config -stub
 
   build-status: # https://github.com/orgs/community/discussions/4324#discussioncomment-3477871
     runs-on: ubuntu-latest

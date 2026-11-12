@@ -1,5 +1,7 @@
 ## CRISPIN development version
 
+- Fix workflow startup with both Nextflow script parsers while preserving completion reporting. (#73, @kelly-sovacool)
+- Preserve executable permissions for bundled scripts in installed CRISPIN packages. (#73, @kelly-sovacool)
 - Fix Nextflow configuration parsing while preserving profile-specific resource limits. (#87, @kelly-sovacool)
 - Nextflow parameters are now validated at the start of the workflow. (#68, @kelly-sovacool)
 
