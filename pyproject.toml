@@ -60,11 +60,15 @@ Documentation = "https://ccbr.github.io/CRISPIN"
 Repository = "https://github.com/CCBR/CRISPIN"
 Changelog = "https://github.com/CCBR/CRISPIN/blob/main/docs/CHANGELOG.md"
 
+[tool.setuptools]
+# Keep bin scripts as package data so their executable permissions are preserved.
+packages = ["crispin", "crispin.src"]
+
 [tool.setuptools.package-dir]
 crispin = "."
 
 [tool.setuptools.package-data]
-"*" = ["CITATION.cff", "LICENSE", "VERSION", "main.nf", "nextflow.config", "nextflow_schema.json", "assets/**", "assets/**", "bin/**", "conf/**", "modules/**", "subworkflows/**"]
+"*" = ["CITATION.cff", "LICENSE", "VERSION", "main.nf", "nextflow.config", "nextflow_schema.json", "assets/**", "bin/**", "conf/**", "lib/**", "modules/**", "subworkflows/**"]
 
 [tool.setuptools.dynamic]
 version = {file = "VERSION"}
