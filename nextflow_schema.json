@@ -136,6 +136,12 @@
                     "type": "integer",
                     "default": 500
                 },
+                "bagel_species": {
+                    "type": "string",
+                    "default": "human",
+                    "enum": ["human", "mouse"],
+                    "description": "Species for BAGEL analysis; determines default essential and non-essential gene set files."
+                },
                 "bagel_core_essential_genes": {
                     "type": "string",
                     "default": "/opt2/bagel-2.0-115/CEGv2.txt",
